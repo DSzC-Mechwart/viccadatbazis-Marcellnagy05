@@ -38,7 +38,7 @@ namespace ViccAdatbazis.Pages
             _context.Viccek.Add(Vicc);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./ListJokes");
         }
     }
 }
