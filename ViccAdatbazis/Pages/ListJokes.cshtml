@@ -1,0 +1,60 @@
+﻿@page
+@model ViccAdatbazis.Pages.ListJokesModel
+
+@{
+    ViewData["Title"] = "ListJokes";
+}
+
+<h1>ListJokes</h1>
+
+<p>
+    <a asp-page="/CreateJokes">Új vicc hozzáadása</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vicc[0].Tartalom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vicc[0].Feltolto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vicc[0].Tetszik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vicc[0].NemTetszik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vicc[0].Aktiv)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Vicc) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tartalom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feltolto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tetszik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NemTetszik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktiv)
+            </td>
+            <td>
+                <a asp-page="./EditJokes" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./DetailsJoke" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./DeleteJokes" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

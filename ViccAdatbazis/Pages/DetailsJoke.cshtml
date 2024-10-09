@@ -1,0 +1,49 @@
+﻿@page
+@model ViccAdatbazis.Pages.DetailsJokeModel
+
+@{
+    ViewData["Title"] = "DetailsJoke";
+}
+
+<h1>DetailsJoke</h1>
+
+<div>
+    <h4>Vicc</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vicc.Tartalom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vicc.Tartalom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vicc.Feltolto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vicc.Feltolto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vicc.Tetszik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vicc.Tetszik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vicc.NemTetszik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vicc.NemTetszik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vicc.Aktiv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vicc.Aktiv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./EditJokes" asp-route-id="@Model.Vicc.Id">Edit</a> |
+    <a asp-page="./ListJokes">Back to List</a>
+</div>
