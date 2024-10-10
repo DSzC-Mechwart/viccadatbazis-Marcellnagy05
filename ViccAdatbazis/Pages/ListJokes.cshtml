@@ -51,34 +51,3 @@
         }
     </tbody>
 </table>
-
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        function addLike(jokeId) {
-            $.ajax({
-                type: "PUT",
-                url: `/api/jokes/${jokeId}/like`,
-                success: function (response) {
-                    $(`#like-count-${jokeId}`).text(response.likes);
-                },
-                error: function () {
-                    alert("Error updating like count.");
-                }
-            });
-        }
-
-        function addDislike(jokeId) {
-            $.ajax({
-                type: "PUT",
-                url: `/api/jokes/${jokeId}/dislike`,
-                success: function (response) {
-                    $(`#dislike-count-${jokeId}`).text(response.dislikes);
-                },
-                error: function () {
-                    alert("Error updating dislike count.");
-                }
-            });
-        }
-    </script>
-}

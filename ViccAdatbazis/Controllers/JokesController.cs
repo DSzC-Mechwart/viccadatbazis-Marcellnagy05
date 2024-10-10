@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ViccAdatbazis.Data;
+using ViccAdatbazis.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ViccAdatbazis.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class JokesController : ControllerBase
     {
+        //Database connection
         private readonly ViccDbContext _context;
 
         public JokesController(ViccDbContext context)
@@ -12,41 +17,69 @@ namespace ViccAdatbazis.Controllers
             _context = context;
         }
 
-        // Add like to a joke
-        [HttpPut("{id}/like")]
-        public async Task<IActionResult> AddLike(int id)
+        //Getting all jokes
+        [HttpGet]
+        public async Task<ActionResult<List<Vicc>>> GetJokes()
         {
-            var joke = await _context.Viccek.FindAsync(id);
-            if (joke == null)
-            {
-                return NotFound();
-            }
-
-            if (joke.Aktiv)
-            {
-                return BadRequest("Cannot like/dislike an archived joke.");
-            }
-
-            joke.Tetszik += 1;
-            await _context.SaveChangesAsync();
-
-            return Ok(joke);
+            return await _context.Viccek.Where(x => x.Aktiv == true).ToListAsync();
         }
 
-        // Add dislike to a joke
-        [HttpPut("{id}/dislike")]
-        public async Task<IActionResult> AddDislike(int id)
+        //Getting one joke
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Vicc>> GetJoke(int id)
         {
             var joke = await _context.Viccek.FindAsync(id);
             if (joke == null)
             {
                 return NotFound();
             }
+            return joke;
+        }
 
-            joke.NemTetszik += 1;
+        //Adding new joke
+        [HttpPost]
+        public async Task<ActionResult<Vicc>> PostJoke(Vicc joke)
+        {
+            _context.Viccek.Add(joke);
             await _context.SaveChangesAsync();
 
-            return Ok(joke);
+            return CreatedAtAction("GetJoke", new { id = joke.Id }, joke);
+        }
+
+        //Edit Joke
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Vicc>> PutJoke(int id, Vicc joke)
+        {
+            if (id != joke.Id)
+            {
+                return BadRequest();
+            }
+            _context.Entry(joke).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        //Delete Joke
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Vicc>> DeleteJoke(int id)
+        {
+            var joke = await _context.Viccek.FindAsync(id);
+            if (joke == null)
+            {
+                return NotFound();
+            }
+            if (joke.Aktiv == true) 
+            { 
+                joke.Aktiv = false;
+            }
+            else
+            {
+                _context.Viccek.Remove(joke);
+            }
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
     }
