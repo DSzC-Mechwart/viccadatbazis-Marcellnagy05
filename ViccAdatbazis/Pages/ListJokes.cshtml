@@ -36,11 +36,9 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Tartalom)</td>
                 <td>@Html.DisplayFor(modelItem => item.Feltolto)</td>
-                <td id="like-count-@item.Id">@item.Tetszik</td>
-                <td id="dislike-count-@item.Id">@item.NemTetszik</td>
-                <td>
-                    <button class="btn btn-success" onclick="addLike(@item.Id)">👍 Like</button>
-                    <button class="btn btn-danger" onclick="addDislike(@item.Id)">👎 Dislike</button>
+                <td id="like-count-@item.Id">
+                    @Html.DisplayFor(modelItem => item.Feltolto)
+                    <button onclick="Like(@item.Id)"></button>
                 </td>
                 <td>
                     <a asp-page="./EditJokes" asp-route-id="@item.Id">Edit</a> |
